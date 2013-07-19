@@ -68,8 +68,12 @@ test(smallestChange(100,murika), {"Quarter": 4})
 
 // Aussie Tests
 
-// test(smallestChange(0), {})
-// test(smallestChange(1), {"Cent": 1})
+test(smallestChange(0, aussie), {})
+test(smallestChange(1, aussie), {"Pence": 1})
+test(smallestChange(20,aussie), {"Emu": 1})
+test(smallestChange(25,aussie), {"Emu": 1, "Wombat": 1})
+test(smallestChange(30,aussie), {"Emu": 1, "Roos": 1})
+test(smallestChange(100,aussie), {"Dollar": 1})
 
 console.log("Done")
 
