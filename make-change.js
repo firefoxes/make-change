@@ -19,21 +19,12 @@ var murika = {
 
 var smallestChange = function(money, coinSet) {
   var change = {}
-  if (money >= coinSet["Quarter"]) {
-    change["Quarter"] = Math.floor(money / coinSet["Quarter"])
-    money %= coinSet["Quarter"]
-  }
-  if (money >= coinSet["Dime"]) {
-    change["Dime"] = Math.floor(money / coinSet["Dime"])
-    money %= coinSet["Dime"]
-  }
-  if (money >= coinSet["Nickel"] ) {
-    change["Nickel"] = Math.floor(money / coinSet["Nickel"])
-    money %= coinSet["Nickel"]
-  }
-  if (money >= coinSet["Penny"] ) {
-    change["Penny"] = Math.floor(money / coinSet["Penny"])
-    money %= coinSet["Penny"]
+  for (coinName in coinSet) {
+    var coinValue = coinSet[coinName]
+    if (money >= coinValue) {
+      change[coinName] = Math.floor(money / coinValue)
+      money %= coinValue
+    }
   }
   return change
 }
