@@ -1,57 +1,84 @@
-var smallestChange = function(money) {
+var aussie = {
+  "TwoDollar": 200,
+  "Dollar": 100,
+  "Fiddy": 50,
+  "Emu": 20,
+  "Roos": 10,
+  "Wombat": 5,
+  "Deuce": 2,
+  "Pence": 1
+}
+
+var murika = {
+  "Quarter": 25,
+  "Dime": 10,
+  "Nickel": 5,
+  "Penny": 1
+}
+
+
+var smallestChange = function(money, coinSet) {
   var change = {}
-  if (money >= 25) {
-    change["Quarter"] = Math.floor(money / 25)
-    money %= 25
+  if (money >= coinSet["Quarter"]) {
+    change["Quarter"] = Math.floor(money / coinSet["Quarter"])
+    money %= coinSet["Quarter"]
   }
-  if (money >= 10) {
-    change["Dime"] = Math.floor(money / 10)
-    money %= 10
+  if (money >= coinSet["Dime"]) {
+    change["Dime"] = Math.floor(money / coinSet["Dime"])
+    money %= coinSet["Dime"]
   }
-  if (money >= 5 ) {
-    change["Nickel"] = 1
-    money -= 5
+  if (money >= coinSet["Nickel"] ) {
+    change["Nickel"] = Math.floor(money / coinSet["Nickel"])
+    money %= coinSet["Nickel"]
   }
-  if (money > 0) change["Penny"] = money
+  if (money >= coinSet["Penny"] ) {
+    change["Penny"] = Math.floor(money / coinSet["Penny"])
+    money %= coinSet["Penny"]
+  }
   return change
 }
 
 // Test Harness
 
-var compareValues = function(a, b ){
+var compareValues = function(a, b){
   return JSON.stringify(a) === JSON.stringify(b)
 }
 
-var assert = function(boolsies){
-  if (!boolsies) throw new Error("Wrong Idiot!!!!")
+var abort = function(){
+  throw new Error('Wrong Idiot!!11!!1')
 }
 
 var test = function(actual, expected){
   var check = compareValues(actual, expected)
   if (!check){
     console.log(actual, expected)
-    assert(check)
+    abort()
   }
 }
 
 // Tests
 
-test(smallestChange(0), {})
-test(smallestChange(1), {"Penny": 1})
-test(smallestChange(2), {"Penny": 2})
-test(smallestChange(5), {"Nickel": 1})
-test(smallestChange(6), {"Nickel": 1, "Penny": 1})
-test(smallestChange(9), {"Nickel": 1, "Penny": 4})
-test(smallestChange(10), {"Dime": 1})
-test(smallestChange(11), {"Dime": 1, "Penny": 1})
-test(smallestChange(15), {"Dime": 1, "Nickel": 1})
-test(smallestChange(16), {"Dime": 1, "Nickel": 1, "Penny": 1})
-test(smallestChange(20), {"Dime": 2})
-test(smallestChange(25), {"Quarter": 1})
-test(smallestChange(30), {"Quarter": 1, "Nickel": 1})
-test(smallestChange(50), {"Quarter": 2})
-test(smallestChange(67), {"Quarter": 2, "Dime": 1, "Nickel": 1, "Penny": 2})
-test(smallestChange(100), {"Quarter": 4})
+test(smallestChange(0,murika), {})
+test(smallestChange(1,murika), {"Penny": 1})
+test(smallestChange(2,murika), {"Penny": 2})
+test(smallestChange(5,murika), {"Nickel": 1})
+test(smallestChange(6,murika), {"Nickel": 1, "Penny": 1})
+test(smallestChange(9,murika), {"Nickel": 1, "Penny": 4})
+test(smallestChange(10,murika), {"Dime": 1})
+test(smallestChange(11,murika), {"Dime": 1, "Penny": 1})
+test(smallestChange(15,murika), {"Dime": 1, "Nickel": 1})
+test(smallestChange(16,murika), {"Dime": 1, "Nickel": 1, "Penny": 1})
+test(smallestChange(20,murika), {"Dime": 2})
+test(smallestChange(25,murika), {"Quarter": 1})
+test(smallestChange(30,murika), {"Quarter": 1, "Nickel": 1})
+test(smallestChange(50,murika), {"Quarter": 2})
+test(smallestChange(67,murika), {"Quarter": 2, "Dime": 1, "Nickel": 1, "Penny": 2})
+test(smallestChange(100,murika), {"Quarter": 4})
+
+// Aussie Tests
+
+// test(smallestChange(0), {})
+// test(smallestChange(1), {"Cent": 1})
 
 console.log("Done")
 
